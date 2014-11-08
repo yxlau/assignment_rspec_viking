@@ -13,12 +13,12 @@ class Calculator
     output(a*b)
   end
   def divide(a,b)
-    raise ArgumentError if b < 0
+    raise ArgumentError if b == 0
     result = a.to_f/b.to_f
     result.to_i == result ? output(result.to_i) : output(result)
   end
   def pow(a,b)
-    output(a**b)
+    output(a**b).to_f
   end
   def sqrt(a)
     raise ArgumentError if a < 0
