@@ -1,5 +1,3 @@
-# Warmup Stuff Goes Here!
-
 class Warmup
  
  # to test this one, you need to stub out Warmup#gets
