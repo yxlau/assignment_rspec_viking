@@ -17,8 +17,8 @@ class Warmup
  # and that your method still returns a totally 
  # different thing
  def calls_some_methods(string)
-   string.upcase!
-   string.reverse!
+   loud_string = string.upcase!
+   loud_string.reverse!
    return "hahahaha this is a terrible method"
  end
 end
