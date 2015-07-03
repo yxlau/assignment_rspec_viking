@@ -6,29 +6,34 @@ class Warmup
   def gets_shout
     shout = gets.chomp.upcase
 
-    # This is a side effect. Test for fun!
+    # This is a side effect. Test it if you'd like.
+    # (optional).  
     puts shout
 
     return shout
   end
   
 
-  # for your spec for this one, pass in a plain old double
+  # For your spec for this one, pass in a plain old double
   # that can accept a #size method and return something
+  # Otherwise, treat is as any other test (this should be
+  # an equality test, e.g. expect(...).to eq(...))
   def double_size(array)
     return array.size * 2
   end
 
   
-  # for this method, you want separate tests to show
-  # that the string you pass in receives the #upcase!
-  # method call, the #reverse! method call,
-  # and that your method still returns a totally 
-  # different thing
+  # For this method, you want separate tests to show:
+  #   1. The string you pass in receives the #upcase!
+  #       method call, 
+  #   2. The string you pass in receives the #reverse! 
+  #      method call,
+  #   3. Your method actually returns a string totally 
+  #      unrelated to the one passed in
   def calls_some_methods(string)
     loud_string = string.upcase!
     loud_string.reverse!
-    return "hahahaha this is a terrible method"
+    return "I am unrelated"
   end
 
  end
