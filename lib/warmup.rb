@@ -18,8 +18,8 @@ class Warmup
   # that can accept a #size method and return something
   # Otherwise, treat is as any other test (this should be
   # an equality test, e.g. expect(...).to eq(...))
-  def double_size(array)
-    return array.size * 2
+  def triple_size(array)
+    return array.size * 3
   end
 
   
