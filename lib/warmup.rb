@@ -26,6 +26,7 @@ class Warmup
   # Tricky! This method has side effects.  Pay attention to
   #   which object each method is called on.  Remember that
   #   "bang!" methods are in-place (destructive).
+  #
   # For this method, write separate tests to show:
   #   1. The string you pass in receives the #upcase!
   #       method call, 
@@ -33,6 +34,8 @@ class Warmup
   #      method call,
   #   3. Your method actually returns a completely different
   #       object than the one you passed in
+  #
+  # It is okay to assume that `string` is never blank ("")
   def calls_some_methods(string)
     loud_string = string.upcase!
     loud_string.reverse!
