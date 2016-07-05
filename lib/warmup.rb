@@ -34,9 +34,8 @@ class Warmup
   #      method call,
   #   3. Your method actually returns a completely different
   #       object than the one you passed in
-  #
-  # It is okay to assume that `string` is never blank ("")
   def calls_some_methods(string)
+    raise "Hey, give me a string!" if string.empty?
     loud_string = string.upcase!
     loud_string.reverse!
     return "I am unrelated"
