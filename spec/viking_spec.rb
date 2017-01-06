@@ -17,24 +17,29 @@ describe Viking do
     it 'passing health to new Viking sets the health attritube' do
       expect(abe.health).to eq(90)
     end
-    it 'health cannnot be overwritten after it\'s been set on initialize' do
-      expect{abe.health = 50}.to raise_error(NoMethodError)
-    end
+
     it 'Viking\'s weapon is nil by default' do
       expect(v.weapon).to be_nil
     end
   end
 
+  describe '#health' do
+    it 'health cannnot be overwritten after it\'s been set on initialize' do
+      expect{abe.health = 50}.to raise_error(NoMethodError)
+    end
+  end
+
   describe '#pick_up_weapon(weapon)' do
     it 'picking up weapon sets it as Viking\'s weapon' do
-      expect(abe.weapon).to be_a(Bow)
+      v.pick_up_weapon(axe)
+      expect(v.weapon).to be_a(Axe)
     end
     it 'picking up a non-weapon raises an exception' do
       expect{v.pick_up_weapon(Viking.new)}.to raise_error("Can't pick up that thing")
     end
     it 'picking up a new weapon replaces a Viking\'s existing weapon' do
-      v.pick_up_weapon(axe)
-      expect(v.weapon).to be_a(Axe)
+      abe.pick_up_weapon(axe)
+      expect(abe.weapon).to be_a(Axe)
     end
   end
 
@@ -51,7 +56,7 @@ describe Viking do
       expect(v.health).to eq(55)
     end
     it 'calls the take_damage method' do
-      expect(v).to receive(:take_damage).with(45)
+      expect(v).to receive(:take_damage).and_return(55)
       v.receive_attack(45)
     end
   end
@@ -65,12 +70,16 @@ describe Viking do
       expect(v).to receive(:take_damage)
       abe.attack(v)
     end
-    it 'attacking with no weapon runs damage_with_fists' do
+    it 'attacking with no weapon runs #damage_with_fists' do
+      v.drop_weapon
       expect(v).to receive(:damage_with_fists).and_return(2.5)
       v.attack(abe)
     end
     it 'attacking with no weapon deals Fists multiplier times strength damage' do
-      expect(abe).to receive(:receive_attack).with(2.5)
+      v.drop_weapon
+      multiplier = Fists.new.use
+      damage = v.strength * multiplier
+      expect(abe).to receive(:receive_attack).with(damage)
       v.attack(abe)
     end
     it 'attacking with a weapon runs damage_with_weapon' do
@@ -78,8 +87,9 @@ describe Viking do
       abe.attack(v)
     end
     it 'attacking with a weapon deals damage equal to the Viking\'s strength times that Weapon\'s multiplier' do
-      allow(abe.weapon).to receive(:use).and_return(5)
-      expect(v).to receive(:receive_attack).with(50)
+      multiplier = bow.use
+      damage = multiplier * abe.strength
+      expect(v).to receive(:receive_attack).with(damage)
       abe.attack(v)
     end
     it 'attacking using a bow without enough arrows uses fists instead' do
